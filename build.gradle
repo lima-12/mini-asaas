@@ -4,7 +4,8 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsGradlePluginVersion"
-        classpath "org.grails.plugins:hibernate5:7.1.0"
+        // classpath "org.grails.plugins:hibernate5:7.1.0"
+        classpath "org.grails.plugins:hibernate5:8.0.0"
         classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.6"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.3.4"
     }
@@ -73,6 +74,10 @@ dependencies {
     testImplementation "org.seleniumhq.selenium:selenium-support:3.141.59"
     testRuntimeOnly "org.seleniumhq.selenium:selenium-chrome-driver:3.141.59"
     testRuntimeOnly "org.seleniumhq.selenium:selenium-firefox-driver:3.141.59"
+
+    implementation "org.grails.plugins:spring-security-core:5.1.1"
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+
 }
 
 bootRun {
