@@ -1,4 +1,4 @@
-package com.mini.asaas.utils
+package com.mini.asaas.base
 
 abstract class BaseEntity {
     
