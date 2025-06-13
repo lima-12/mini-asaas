@@ -5,17 +5,15 @@ import com.mini.asaas.utils.BaseEntity
 
 class Payer extends BaseEntity {
 
-    String nome
+    String name
+    String email
     String cpfCnpj
-    String cep
-    String logradouro
-    String numero
+    String postalCode
+    String adress
+    String adressNumber
 
     static constraints = {
-        nome nullable: false, blank: false
+        name nullable: false, blank: false
         cpfCnpj nullable: false, blank: false
-        cep nullable: true
-        logradouro nullable: true
-        numero nullable: true
     }
 }

@@ -7,7 +7,7 @@
     <atlas-button
             description="Salvar"
             appearance="primary"
-            onclick="salvarPagadorComAjax()">
+            onclick="savePayerWithAjax()">
     </atlas-button>
     <atlas-button
             description="Cancelar"
@@ -17,31 +17,30 @@
 </atlas-layout>
 
 <script type="text/javascript">
-    async function salvarPagadorComAjax() {
-        // Coleta os valores de cada campo do Atlas pelo seu ID.
-        const dadosPagador = {
-            nome: document.getElementById('nome').value,
+    async function savePayerWithAjax() {
+
+        const payerData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
             cpfCnpj: document.getElementById('cpfCnpj').value,
-            cep: document.getElementById('cep').value,
-            logradouro: document.getElementById('logradouro').value,
-            numero: document.getElementById('numero').value
+            postalCode: document.getElementById('postalCode').value,
+            adress: document.getElementById('adress').value,
+            adressNumber: document.getElementById('adressNumber').value
         };
 
-        // Usa a API 'fetch' do JavaScript para enviar os dados
         const response = await fetch('${createLink(action: 'save')}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dadosPagador)
+            body: JSON.stringify(payerData)
         });
 
-        // Trata a resposta do servidor
         if (response.ok) {
             // alert('Pagador criado com sucesso!');
             window.location.href = '${createLink(action: 'index')}';
         } else {
-            // const errorData = await response.json();
+            const errorData = await response.json();
             alert('Erro ao salvar: \n' + errorData.errors.join('\n'));
         }
     }

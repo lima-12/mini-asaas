@@ -8,11 +8,16 @@
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
     <atlas-input
-            id="nome"
-            style="grid-column: span 2;"
+            id="name"
             label="Nome"
-            value="${payer?.nome}"
+            value="${payer?.name}"
             required>
+    </atlas-input>
+
+    <atlas-input
+            id="email"
+            label="E-mail"
+            value="${payer?.email}">
     </atlas-input>
 
     <atlas-masked-input
@@ -24,21 +29,21 @@
     </atlas-masked-input>
 
     <atlas-masked-input
-            id="cep"
+            id="postalCode"
             label="CEP"
             mask-alias="cep"
-            value="${payer?.cep}">
+            value="${payer?.postalCode}">
     </atlas-masked-input>
 
     <atlas-input
-            id="logradouro"
+            id="adress"
             label="Logradouro"
-            value="${payer?.logradouro}">
+            value="${payer?.adress}">
     </atlas-input>
 
     <atlas-integer-input
-            id="numero"
+            id="adressNumber"
             label="Número"
-            value="${payer?.numero}">
+            value="${payer?.adressNumber}">
     </atlas-integer-input>
 </div>

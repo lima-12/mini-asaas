@@ -7,7 +7,7 @@
     <atlas-button
             description="Atualizar"
             appearance="primary"
-            onclick="atualizarPagadorComAjax()">
+            onclick="updatePayerWithAjax()">
     </atlas-button>
     <atlas-button
             description="Cancelar"
@@ -17,24 +17,24 @@
 </atlas-layout>
 
 <script type="text/javascript">
-    // Passando o ID do pagador para a função JavaScript
     const payerId = ${payer.id};
 
-    async function atualizarPagadorComAjax() {
-        const dadosPagador = {
-            nome: document.getElementById('nome').value,
+    async function updatePayerWithAjax() {
+        const payerData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
             cpfCnpj: document.getElementById('cpfCnpj').value,
-            cep: document.getElementById('cep').value,
-            logradouro: document.getElementById('logradouro').value,
-            numero: document.getElementById('numero').value
+            postalCode: document.getElementById('postalCode').value,
+            adress: document.getElementById('adress').value,
+            adressNumber: document.getElementById('adressNumber').value
         };
 
         const response = await fetch('${createLink(action: 'update')}/' + payerId, {
-            method: 'PUT', // Metodo HTTP correto para atualização
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dadosPagador)
+            body: JSON.stringify(payerData)
         });
 
         if (response.ok) {

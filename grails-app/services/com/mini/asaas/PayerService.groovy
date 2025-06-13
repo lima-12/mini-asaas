@@ -11,7 +11,7 @@ class PayerService {
      * automaticamente os registros com 'deleted = true'.
      */
     List<Payer> list() {
-        return Payer.list(sort: 'nome', order: 'asc')
+        return Payer.list(sort: 'name', order: 'asc')
     }
 
     /**
@@ -28,17 +28,18 @@ class PayerService {
      * Salva um novo pagador no banco de dados.
      * Este metodo segue a regra de ser explícito, recebendo um
      * mapa de parâmetros para criar o novo objeto.
-     * @param params Um mapa com os dados do pagador (ex: [nome: "...", cpfCnpj: "..."]).
+     * @param params Um mapa com os dados do pagador (ex: [name: "...", cpfCnpj: "..."]).
      * @return O objeto Payer salvo, ou null se a validação falhar.
      */
     @Transactional
-    Payer save(String nome, String cpfCnpj, String cep, String logradouro, String numero) {
+    Payer save(String name, String email, String cpfCnpj, String postalCode, String adress, String adressNumber) {
         def payer = new Payer()
-        payer.nome = nome
+        payer.name = name
+        payer.email = email
         payer.cpfCnpj = cpfCnpj
-        payer.cep = cep
-        payer.logradouro = logradouro
-        payer.numero = numero
+        payer.postalCode = postalCode
+        payer.adress = adress
+        payer.adressNumber = adressNumber
 
         return payer.save(flush: true)
     }
@@ -49,23 +50,21 @@ class PayerService {
      * @return O objeto Payer atualizado.
      */
     @Transactional
-    Payer update(Long id, String nome, String cpfCnpj, String cep, String logradouro, String numero) {
-        // Busca o pagador no banco de dados
-        Payer pagador = Payer.get(id)
+    Payer update(Long id, String name, String email, String cpfCnpj, String postalCode, String adress, String adressNumber) {
+        Payer payer = Payer.get(id)
 
-        // Se o pagador for encontrado, atualiza cada propriedade
-        if (pagador) {
-            pagador.nome = nome
-            pagador.cpfCnpj = cpfCnpj
-            pagador.cep = cep
-            pagador.logradouro = logradouro
-            pagador.numero = numero
+        if (payer) {
+            payer.name = name
+            payer.email = email
+            payer.cpfCnpj = cpfCnpj
+            payer.postalCode = postalCode
+            payer.adress = adress
+            payer.adressNumber = adressNumber
 
-            // Salva as alterações
-            pagador.save(flush: true)
+            payer.save(flush: true)
         }
 
-        return pagador
+        return payer
     }
 
     /**
@@ -75,9 +74,9 @@ class PayerService {
      * @param id O ID do pagador a ser "removido".
      */
     void delete(Long id) {
-        Payer pagador = Payer.get(id)
-        if (pagador) {
-            pagador.delete()
+        Payer payer = Payer.get(id)
+        if (payer) {
+            payer.delete()
         }
     }
 }

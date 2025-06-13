@@ -11,16 +11,10 @@
     <atlas-button appearance="primary" description="Novo Pagador" href="${createLink(action: 'create')}"></atlas-button>
 </div>
 
-<div id="global-alert-container" style="position: fixed; top: 80px; right: 20px; z-index: 9999; width: 350px;">
-    <%-- O JavaScript irá inserir os componentes <atlas-alert> aqui --%>
-    %{--    <atlas-alert message="Operação realizada com sucesso" type="success">--}%
-    %{--    </atlas-alert>--}%
-</div>
-
-
 <atlas-table>
     <atlas-table-header slot="header">
         <atlas-table-col> Nome </atlas-table-col>
+        <atlas-table-col> Email </atlas-table-col>
         <atlas-table-col> CPF/CNPJ </atlas-table-col>
         <atlas-table-col> Endereço </atlas-table-col>
         <atlas-table-col> Ações </atlas-table-col>
@@ -30,7 +24,11 @@
         <g:each in="${payerList}" var="payer">
             <atlas-table-row>
                 <atlas-table-col>
-                    ${payer.nome}
+                    ${payer.name}
+                </atlas-table-col>
+
+                <atlas-table-col>
+                    ${payer.email}
                 </atlas-table-col>
 
                 <atlas-table-col>
@@ -38,7 +36,7 @@
                 </atlas-table-col>
 
                 <atlas-table-col>
-                    ${payer.logradouro} - ${payer.numero}
+                    ${payer.adress} - ${payer.adressNumber}
                 </atlas-table-col>
 
                 <atlas-table-col>
@@ -56,7 +54,7 @@
                                 theme="danger"
                                 size="sm"
                                 description="Deletar"
-                                onclick="deletarPagadorComAjax(${payer.id}, this)">
+                                onclick="deletePayerWithAjax(${payer.id}, this)">
                         </atlas-button>
                     </div>
                 </atlas-table-col>
@@ -67,17 +65,15 @@
 
 
 <script type="text/javascript">
-    async function deletarPagadorComAjax(payerId, buttonElement) {
+    async function deletePayerWithAjax(payerId, buttonElement) {
         if (confirm('Tem certeza que deseja remover este pagador?')) {
             const response = await fetch('${createLink(action: 'delete')}/' + payerId, {
                 method: 'DELETE'
             });
 
             if (response.ok) {
-                // A partir do botão, encontramos a 'linha pai' mais próxima
                 const row = buttonElement.closest('atlas-table-row');
                 if (row) {
-                    // Removemos a linha da tela
                     row.remove();
                 }
                 alert('Pagador removido com sucesso!');
