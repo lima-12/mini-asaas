@@ -37,7 +37,6 @@ class CustomerController {
             respond customer.errors, view:'create'
             return
         }
-
         
     }
 
@@ -54,17 +53,16 @@ class CustomerController {
                 return
             }
             customerService.update(customer, params)
-        } catch (ValidationException e) {
-            respond customer.errors, view:'edit'
-            return
-        }
-
-        request.withFormat {
+            request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'customer.label', default: 'Customer'), customer.id])
                 redirect customer
             }
             '*'{ respond customer, [status: OK] }
+        }
+        } catch (ValidationException e) {
+            respond customer.errors, view:'edit'
+            return
         }
     }
 
