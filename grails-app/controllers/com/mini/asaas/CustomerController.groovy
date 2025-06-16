@@ -45,14 +45,15 @@ class CustomerController {
         respond customerService.get(id)
     }
 
-    def update(Customer customer) {
-        if (customer == null) {
-            notFound()
-            return
-        }
+    def update() {
 
         try {
-            customerService.save(customer)
+            Customer customer = Customer.get(params.id)
+            if (!customer) {
+                notFound()
+                return
+            }
+            customerService.update(customer, params)
         } catch (ValidationException e) {
             respond customer.errors, view:'edit'
             return

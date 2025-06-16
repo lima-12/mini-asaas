@@ -18,8 +18,8 @@ class CustomerService {
        Customer customer = new Customer() 
        customer.name = params.name
        customer.email = params.email
-       customer.cpfCnpj = params.cpfCnpj as Integer
-       customer.postalCode = params.postalCode as Integer
+       customer.cpfCnpj = params.cpfCnpj
+       customer.postalCode = params.postalCode
        customer.adress = params.adress
        customer.adressNumber = params.adressNumber
 
@@ -42,6 +42,24 @@ class CustomerService {
 
     Customer get(Serializable id){
         return Customer.get(id)
+    }
+
+    Customer update(Customer customer, Map params){
+        
+        Customer customerValidated = validateCustomerParams(params)
+        
+        if (customerValidated.hasErrors()) {
+            throw new ValidationException("Erro ao salvar as alterações", customerValues.errors)
+        }
+
+        customer.name = params.name
+        customer.email = params.email
+        customer.cpfCnpj = params.cpfCnpj
+        customer.postalCode = params.postalCode
+        customer.adress = params.adress
+        customer.adressNumber = params.adressNumber
+
+        return customer.save(flush: true, failOnError: true)
     }
 
     List<Customer> list(Map args){

@@ -4,8 +4,8 @@ import com.mini.asaas.utils.BaseEntity
 class Customer extends BaseEntity {
    String name
    String email
-   Integer cpfCnpj
-   Integer postalCode
+   String cpfCnpj
+   String postalCode
    String adress
    String adressNumber 
 
