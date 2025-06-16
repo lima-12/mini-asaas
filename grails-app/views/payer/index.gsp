@@ -1,12 +1,14 @@
 <%@ page defaultCodec="html" %>
 <meta name="layout" content="main"/>
+<asset:stylesheet src="payer/index.css"/>
+
 <title>Lista de Pagadores</title>
 
 <g:if test="${flash.message}">
     <div class="message">${flash.message}</div>
 </g:if>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<div class="header-container">
     <h2>Pagadores Cadastrados</h2>
     <atlas-button appearance="primary" description="Novo Pagador" href="${createLink(action: 'create')}"></atlas-button>
 </div>
@@ -36,11 +38,11 @@
                 </atlas-table-col>
 
                 <atlas-table-col>
-                    ${payer.adress} - ${payer.adressNumber}
+                    ${payer.address} - ${payer.addressNumber}
                 </atlas-table-col>
 
                 <atlas-table-col>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <atlas-layout gap="2" inline>
                         <atlas-button
                             type="outlined"
                             theme="primary"
@@ -56,7 +58,7 @@
                                 description="Deletar"
                                 onclick="deletePayerWithAjax(${payer.id}, this)">
                         </atlas-button>
-                    </div>
+                    </atlas-layout>
                 </atlas-table-col>
             </atlas-table-row>
         </g:each>
@@ -64,22 +66,5 @@
 </atlas-table>
 
 
-<script type="text/javascript">
-    async function deletePayerWithAjax(payerId, buttonElement) {
-        if (confirm('Tem certeza que deseja remover este pagador?')) {
-            const response = await fetch('${createLink(action: 'delete')}/' + payerId, {
-                method: 'DELETE'
-            });
+<asset:javascript src="payer/index.js"/>
 
-            if (response.ok) {
-                const row = buttonElement.closest('atlas-table-row');
-                if (row) {
-                    row.remove();
-                }
-                alert('Pagador removido com sucesso!');
-            } else {
-                alert('Ocorreu um erro ao tentar remover o pagador.');
-            }
-        }
-    }
-</script>

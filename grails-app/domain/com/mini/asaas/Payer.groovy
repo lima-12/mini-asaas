@@ -1,6 +1,6 @@
 package com.mini.asaas
 
-import com.mini.asaas.utils.BaseEntity
+import com.mini.asaas.base.BaseEntity
 
 
 class Payer extends BaseEntity {
@@ -9,8 +9,8 @@ class Payer extends BaseEntity {
     String email
     String cpfCnpj
     String postalCode
-    String adress
-    String adressNumber
+    String address
+    String addressNumber
 
     static constraints = {
         name nullable: false, blank: false

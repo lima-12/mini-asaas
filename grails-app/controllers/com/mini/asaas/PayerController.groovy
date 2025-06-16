@@ -22,8 +22,8 @@ class PayerController {
                 requestData.email,
                 requestData.cpfCnpj,
                 requestData.postalCode,
-                requestData.adress,
-                requestData.adressNumber
+                requestData.address,
+                requestData.addressNumber
         )
 
         if (payerSave.hasErrors()) {
@@ -44,6 +44,7 @@ class PayerController {
 
     def update() {
         Payer existingPayer = payerService.get(params.id as Long)
+
         if (!existingPayer) {
             response.status = 404
             render(contentType: 'application/json') {
@@ -60,8 +61,8 @@ class PayerController {
                 requestData.email,
                 requestData.cpfCnpj,
                 requestData.postalCode,
-                requestData.adress,
-                requestData.adressNumber
+                requestData.address,
+                requestData.addressNumber
         )
 
         if (updatedPayer.hasErrors()) {
