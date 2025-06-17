@@ -11,4 +11,5 @@ abstract class BaseEntity {
    static mapping = {
        tablePerHierarchy false
    }
+   
 }
