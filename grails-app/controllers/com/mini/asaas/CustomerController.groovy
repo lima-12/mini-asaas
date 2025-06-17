@@ -59,29 +59,36 @@ class CustomerController {
                 redirect customer
             }
             '*'{ respond customer, [status: OK] }
-        }
+            }
         } catch (ValidationException e) {
             respond customer.errors, view:'edit'
             return
         }
     }
 
-    def delete(Long id) {
-        if (id == null) {
-            notFound()
+    def delete() {
+        try { 
+            Customer customer = Customer.get(params.id)
+            if (!customer) {
+                notFound()
+                return
+            }
+            customerService.softDelete(params)
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.deleted.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
+                    redirect action:"index", method:"GET"
+                }
+            '*'{ render status: NO_CONTENT }
+            }
+
+        } catch (IllegalArgumentException e){
+            respond customer.errors, view:'index'
             return
         }
-
-        customerService.delete(id)
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'customer.label', default: 'Customer'), id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
     }
+
 
     protected void notFound() {
         request.withFormat {

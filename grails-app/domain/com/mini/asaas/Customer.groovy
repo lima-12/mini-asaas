@@ -10,7 +10,8 @@ class Customer extends BaseEntity {
    String adressNumber 
 
    static constraints = {
-        email email: true
+      email email: true
+        //deleted display: false
    }
  
 }
