@@ -17,10 +17,11 @@ async function savePayerWithAjax() {
         body: JSON.stringify(payerData)
     });
 
-        if (response.ok) {
-        window.location.href = '/payer/index';
-    } else {
+    if (!response.ok) {
         const errorData = await response.json();
-        alert('Erro ao salvar: \n' + errorData.errors.join('\n'));
+        alert('Erro ao salvar: \n' + (errorData.errors ? errorData.errors.join('\n') : errorData.error));
+        return;
     }
+
+    window.location.href = '/payer/index';
 }
