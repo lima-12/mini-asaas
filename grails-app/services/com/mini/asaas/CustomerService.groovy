@@ -44,6 +44,14 @@ class CustomerService {
         return Customer.get(id)
     }
 
+    Customer getActiveCustomerById(Serializable id){
+        Customer customer = Customer.get(id)
+        if(customer && customer.deleted){
+            return null
+        }
+        return customer
+    }
+
     Customer update(Customer customer, Map params){
         
         Customer customerValidated = validateCustomerParams(params)
@@ -66,14 +74,35 @@ class CustomerService {
         return Customer.list(args)
     }
 
+    List<Customer> listDeleted(Map args){
+        return Customer.where {deleted == true}.list(args)
+    }
+
+    List<Customer> listActive(Map args){
+        return Customer.where {deleted == false}.list(args)
+    }
+
     Long count(){
         return Customer.count()
     }
 
-    void delete(Serializable id){
-        Customer customer = Customer.get(id)
+    Long countActiveCustomers(){
+        return Customer.countByDeleted(false)
+    }
+
+    void softDelete(Map params){
+        Customer customer = Customer.get(params.id)
+        if (customer.deleted){
+            throw new IllegalArgumentException("Cliente com ID $id já deletado")
+        } 
+        customer.deleted = true
+        customer.save(flush: true, failOnError: true)
+    }
+
+    void delete(Map params){
+        Customer customer = Customer.get(params.id)
         if (customer){
-            println("Tentativa de delete")
+            customer.delete(flush: true, failOnError: true)
         } else{
             throw new IllegalArgumentException("Não encontrado")
         }
