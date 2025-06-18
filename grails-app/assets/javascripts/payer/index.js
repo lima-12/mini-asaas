@@ -10,10 +10,6 @@ async function deletePayerWithAjax(payerId, buttonElement) {
         alert('Ocorreu um erro ao tentar remover o pagador.');
     }
 
-    const row = buttonElement.closest('atlas-table-row');
-    if (row) {
-        row.remove();
-    }
-
     alert('Pagador removido com sucesso!');
+    window.location.reload();
 }
