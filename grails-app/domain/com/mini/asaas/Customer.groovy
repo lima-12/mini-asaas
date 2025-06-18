@@ -1,5 +1,5 @@
 package com.mini.asaas
-import com.mini.asaas.utils.BaseEntity
+import com.mini.asaas.base.BaseEntity
 
 class Customer extends BaseEntity {
    String name
