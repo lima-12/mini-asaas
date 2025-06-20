@@ -8,6 +8,7 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
+    <asset:stylesheet src="layouts/main.css" />
     <link
             rel="stylesheet"
             href="https://atlas.asaas.com/reset.css"
@@ -21,12 +22,6 @@
             src="https://atlas.asaas.com/v26.3.1/atlas.js"
             crossorigin="anonymous"
     ></script>
-
-    <style>
-    body, html {
-        height: 100%;
-    }
-    </style>
 
     <g:layoutHead/>
 
