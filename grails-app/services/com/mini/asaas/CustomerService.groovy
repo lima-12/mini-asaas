@@ -93,7 +93,7 @@ class CustomerService {
     void softDelete(Map params){
         Customer customer = Customer.get(params.id)
         if (customer.deleted){
-            throw new IllegalArgumentException("Cliente com ID $id já deletado")
+            throw new IllegalArgumentException("Cliente com ID $customer.id já deletado")
         } 
         customer.deleted = true
         customer.save(flush: true, failOnError: true)
