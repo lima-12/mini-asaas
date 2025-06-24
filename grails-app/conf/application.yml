@@ -91,10 +91,17 @@ management:
         jmx:
             unique-names: true
 
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: false
+        use_query_cache: false
+
 dataSource:
     pooled: true
     jmxExport: true
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: "com.mysql.jdbc.Driver"
     dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     username: ${DB_USER}
     password: ${DB_PASSWORD}
@@ -103,6 +110,6 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: update
-            url: jdbc:mysql://localhost:3306/miniasaas
+            dbCreate: "update"
+            url: "jdbc:mysql://localhost:3306/miniasaas"
 
