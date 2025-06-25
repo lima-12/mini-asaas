@@ -5,6 +5,7 @@ import com.mini.asaas.base.BaseEntity
 
 class Payer extends BaseEntity {
 
+    Customer customer
     String name
     String email
     String cpfCnpj
