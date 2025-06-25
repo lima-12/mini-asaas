@@ -84,7 +84,8 @@ class CustomerController {
             }
 
         } catch (IllegalArgumentException e){
-            respond customer.errors, view:'index'
+            flash.message = "${e.message}"
+	        redirect(action:'index')
             return
         }
     }
