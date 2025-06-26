@@ -6,6 +6,7 @@ import com.mini.asaas.enums.TypeRegistry
 
 class Payer extends BaseEntity {
 
+    Customer customer
     TypeRegistry typeRegistry
     String name
     String email
