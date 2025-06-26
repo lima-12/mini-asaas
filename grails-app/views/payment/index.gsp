@@ -9,8 +9,8 @@
 </g:if>
 
 <div class="header-container">
-    <h2>Pagamentos Cadastrados</h2>
-    <atlas-button appearance="primary" description="Novo Pagamento" href="${createLink(action: 'create')}"></atlas-button>
+    <h2>Cobranças Cadastradss</h2>
+    <atlas-button appearance="primary" description="Nova Cobrança" href="${createLink(action: 'create')}"></atlas-button>
 </div>
 
 <atlas-table>

@@ -12,7 +12,7 @@
         ></atlas-sidebar-menu-item>
 
         <atlas-sidebar-menu-item
-                text="Pagamentos"
+                text="Cobranças"
                 icon="hand-holding-money"
                 href="${createLink(uri: '/payment')}"
         ></atlas-sidebar-menu-item>
