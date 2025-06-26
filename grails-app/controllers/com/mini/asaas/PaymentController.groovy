@@ -23,19 +23,19 @@ class PaymentController {
     }
 
     def save() {
-        def requestData = request.JSON
+        Map requestData = request.JSON
 
         try {
 
-            def rawValue = requestData.value.toString()
+            String rawValue = requestData.value.toString()
                     .replace('.', '')
                     .replace(',', '.')
-            def parsedValue = new BigDecimal(rawValue)
+            BigDecimal parsedValue = new BigDecimal(rawValue)
 
-            def formatter = new SimpleDateFormat("dd/MM/yyyy")
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy")
             Date parsedDueDate = formatter.parse(requestData.dueDate)
 
-            def payment = paymentService.save(
+            Payment payment = paymentService.save(
                     requestData.customerId as Long,
                     requestData.payerId as Long,
                     requestData.billingType,
@@ -86,14 +86,14 @@ class PaymentController {
             return
         }
 
-        def requestData = request.JSON
+        Map requestData = request.JSON
 
         try {
 
-            def formatter = new SimpleDateFormat("dd/MM/yyyy")
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy")
             Date parsedDueDate = formatter.parse(requestData.dueDate)
 
-            def payment = paymentService.update(
+            Payment payment = paymentService.update(
                     existingPayment.id,
                     requestData.payerId as Long,
                     parsedDueDate
