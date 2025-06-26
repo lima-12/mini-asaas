@@ -1,44 +1,65 @@
-async function updatePaymentWithAjax() {
-    const paymentId = document.getElementById('paymentId')?.value;
+function PaymentEditController() {
+    this.reference = document.getElementById("paymentFormLayout");
 
-    const paymentData = {
-        payerId: document.getElementById('payerId')?.value,
-        dueDate: document.getElementById('dueDate')?.value
-    };
-
-    const response = await fetch(`/payment/update/${paymentId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(paymentData)
-    });
-
-    if (!response.ok) {
-        const errorData = await response.json();
-        alert('Erro ao atualizar pagamento:\n' + (errorData.errors ? errorData.errors.join('\n') : errorData.error));
-        return;
+    this.init = function () {
+        this.populateSelects();
+        this.setupListeners();
     }
 
-    window.location.href = '/payment/index';
+    this.populateSelects = function () {
+        const payerId = this.reference.dataset.payerId;
+        const billingType = this.reference.dataset.billingType;
+        const status = this.reference.dataset.status;
+
+        if (payerId) {
+            document.getElementById("payerId").value = payerId;
+        }
+
+        if (billingType) {
+            document.getElementById("billingType").value = billingType;
+        }
+
+        if (status) {
+            document.getElementById("status").value = status;
+        }
+    }
+
+    this.setupListeners = function () {
+        const button = document.getElementById("updatePaymentBtn");
+        if (button) {
+            button.addEventListener("click", () => this.updatePaymentWithAjax());
+        }
+    }
+
+    this.updatePaymentWithAjax = async function () {
+        const paymentId = document.getElementById('paymentId')?.value;
+
+        const paymentData = {
+            payerId: document.getElementById('payerId')?.value,
+            dueDate: document.getElementById('dueDate')?.value
+        };
+
+        const response = await fetch(`/payment/update/${paymentId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paymentData)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert('Erro ao atualizar pagamento:\n' +
+                (errorData.errors ? errorData.errors.join('\n') : errorData.error));
+            return;
+        }
+
+        window.location.href = '/payment/index';
+    }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const layout = document.getElementById("paymentFormLayout");
-
-    const payerId = layout.dataset.payerId;
-    const billingType = layout.dataset.billingType;
-    const status = layout.dataset.status;
-
-    if (payerId) {
-        document.getElementById("payerId").value = payerId;
-    }
-
-    if (billingType) {
-        document.getElementById("billingType").value = billingType;
-    }
-
-    if (status) {
-        document.getElementById("status").value = status;
-    }
+document.addEventListener("DOMContentLoaded", function () {
+    const controller = new PaymentEditController();
+    controller.init();
 });
+

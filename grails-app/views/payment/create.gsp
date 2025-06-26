@@ -7,9 +7,9 @@
 
 <atlas-layout gap="2" inline>
     <atlas-button
+            id="createPaymentBtn"
             theme="primary"
-            description="Salvar"
-            onclick="savePaymentWithAjax()">
+            description="Salvar">
     </atlas-button>
     <atlas-button
             theme="primary"

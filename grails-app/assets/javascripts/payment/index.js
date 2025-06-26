@@ -1,15 +1,38 @@
-async function deletePaymentWithAjax(paymentId) {
+function PaymentEditController() {
 
-    if(!confirm('Tem certeza que deseja remover este pagamento?')) return;
+    this.init = function () {
+        this.setupListeners();
+    };
 
-    const response = await fetch(`/payment/delete/${paymentId}`, {
-        method: 'DELETE'
-    });
+    this.setupListeners = function () {
+        const deleteButtons = document.querySelectorAll(".delete-payment-btn");
 
-    if(!response.ok) {
-        alert('Ocorreu um erro ao tentar remover o pagamento.');
-    }
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const paymentId = button.dataset.paymentId;
+                this.deletePaymentWithAjax(paymentId);
+            });
+        });
+    };
 
-    alert('Pagamento removido com sucesso!');
-    window.location.reload();
+    this.deletePaymentWithAjax = async function (paymentId) {
+        if (!confirm('Tem certeza que deseja remover este pagamento?')) return;
+
+        const response = await fetch(`/payment/delete/${paymentId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            alert('Ocorreu um erro ao tentar remover o pagamento.');
+            return;
+        }
+
+        alert('Pagamento removido com sucesso!');
+        window.location.reload();
+    };
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const controller = new PaymentEditController();
+    controller.init();
+});

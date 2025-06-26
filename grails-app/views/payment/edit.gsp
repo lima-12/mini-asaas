@@ -5,9 +5,9 @@
 
 <atlas-layout gap="2" inline>
     <atlas-button
+            id="updatePaymentBtn"
             description="Atualizar"
             appearance="primary"
-            onclick="updatePaymentWithAjax()"
     >
     </atlas-button>
     <atlas-button

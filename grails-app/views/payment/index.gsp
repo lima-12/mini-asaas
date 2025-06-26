@@ -74,11 +74,12 @@
                         </atlas-button>
 
                         <atlas-button
+                                class="delete-payment-btn"
+                                data-payment-id="${payment.id}"
                                 type="outlined"
                                 theme="danger"
                                 size="sm"
-                                description="Deletar"
-                                onclick="deletePaymentWithAjax(${payment.id})">
+                                description="Deletar">
                         </atlas-button>
                     </atlas-layout>
                 </atlas-table-col>
