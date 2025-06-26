@@ -1,8 +1,9 @@
 async function savePaymentWithAjax() {
 
     const paymentData = {
+        customerId: document.getElementById('customerId').value,
         payerId: document.getElementById('payerId').value,
-        amount: document.getElementById('amount').value,
+        value: document.getElementById('value').value,
         billingType: document.getElementById('billingType').value,
         status: document.getElementById('status').value,
         dueDate: document.getElementById('dueDate').value

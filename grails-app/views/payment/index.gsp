@@ -1,4 +1,4 @@
-<%@ page import="java.time.format.DateTimeFormatter" defaultCodec="html" %>
+<%@ page import="java.text.SimpleDateFormat;" defaultCodec="html" %>
 <meta name="layout" content="main"/>
 <asset:stylesheet src="payment/index.css"/>
 
@@ -30,7 +30,7 @@
                     ${payment.payer.name}
                 </atlas-table-col>
                 <atlas-table-col>
-                    ${formatNumber(number: payment.amount, format: "###,##0.00", locale: 'pt_BR')}
+                    ${formatNumber(number: payment.value, format: "###,##0.00", locale: 'pt_BR')}
                 </atlas-table-col>
                 <atlas-table-col>
                     ${payment.billingType}
@@ -57,9 +57,10 @@
                 </atlas-table-col>
                 <atlas-table-col>
                     <atlas-badge
-                            text="${payment.dueDate?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))}"
+                            text="${payment.dueDate ? new SimpleDateFormat('dd/MM/yyyy').format(payment.dueDate) : ''}"
                             theme="danger">
                     </atlas-badge>
+
                 </atlas-table-col>
 
                 <atlas-table-col>

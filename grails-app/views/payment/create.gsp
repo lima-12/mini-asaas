@@ -1,6 +1,8 @@
 <meta name="layout" content="main"/>
 <title>Criar Novo Pagamento</title>
 
+%{--${customer.properties}--}%
+
 <g:render template="form"/>
 
 <atlas-layout gap="2" inline>

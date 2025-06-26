@@ -1,19 +1,19 @@
 package com.mini.asaas
 
 import com.mini.asaas.base.BaseEntity
-import java.time.LocalDate
 
 class Payment extends BaseEntity {
 
+    Customer customer
     Payer payer
-    BigDecimal amount
+    BigDecimal value
     String billingType
     String status
-    LocalDate dueDate
+    Date dueDate
 
     static constraints = {
         payer nullable: false
-        amount nullable: false
+        value nullable: false
         billingType inList: [
                 'BOLETO',
                 'PIX',

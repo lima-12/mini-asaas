@@ -15,25 +15,31 @@ class PaymentService {
         return Payment.get(id)
     }
 
-    Payment save(Long payerId, String billingType, BigDecimal amount, String status, LocalDate dueDateStr) {
+    Payment save(Long customerId, Long payerId, String billingType, BigDecimal value, String status, Date dueDate) {
+        Customer customer = Customer.get(customerId)
         def payer = Payer.get(payerId)
+
+        if (!customer) {
+            throw new IllegalArgumentException("Customer não encontrado")
+        }
 
         if (!payer) {
             throw new IllegalArgumentException("Payer não encontrado")
         }
 
         def payment = new Payment()
+        payment.customer = customer
         payment.payer = payer
         payment.billingType = billingType
-        payment.amount = amount
+        payment.value = value
         payment.status = status
-        payment.dueDate = dueDateStr
+        payment.dueDate = dueDate
 
         return payment.save(flush: true)
     }
 
 
-    Payment update(Long paymentId, Long payerId, LocalDate dueDate) {
+    Payment update(Long paymentId, Long payerId, Date dueDate) {
         def payment = Payment.get(paymentId)
 
         if (!payment) {

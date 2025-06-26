@@ -1,4 +1,4 @@
-<%@ page import="java.time.format.DateTimeFormatter; com.mini.asaas.Payment" %>
+<%@ page import="java.text.SimpleDateFormat; com.mini.asaas.Payment" %>
 
 <atlas-layout
         id="paymentFormLayout"
@@ -7,6 +7,7 @@
         data-billing-type="${payment?.billingType}"
         data-status="${payment?.status}">
 
+    <input type="hidden" id="customerId" value="${customer?.id}" />
     <input type="hidden" id="paymentId" value="${payment?.id}" />
 
     <atlas-panel>
@@ -55,9 +56,9 @@
                 </atlas-col>
                 <atlas-col lg="6">
                     <atlas-money
-                        id="amount"
+                        id="value"
                         label="Valor"
-                        value="${payment?.amount}"
+                        value="${payment?.value}"
                         required
                         ${payment?.id ? 'disabled' : ''}>
                 </atlas-money>
@@ -90,7 +91,7 @@
                     <atlas-date-picker
                             id="dueDate"
                             label="Data de vencimento"
-                            value="${payment?.dueDate?.format(DateTimeFormatter.ofPattern('dd/MM/yyyy'))}"
+                            value="${payment.dueDate ? new SimpleDateFormat('dd/MM/yyyy').format(payment.dueDate) : ''}"
                             required>
                     </atlas-date-picker>
                 </atlas-col>

@@ -2,8 +2,7 @@ package com.mini.asaas
 
 import grails.converters.JSON
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
 
 class PaymentController {
 
@@ -14,7 +13,10 @@ class PaymentController {
     }
 
     def create() {
+        Customer customer = Customer.get(1)
+
         [
+                customer: customer,
                 payment: new Payment(),
                 payers: Payer.list()
         ]
@@ -25,18 +27,19 @@ class PaymentController {
 
         try {
 
-            def rawAmount = requestData.amount.toString()
+            def rawValue = requestData.value.toString()
                     .replace('.', '')
                     .replace(',', '.')
-            def parsedAmount = new BigDecimal(rawAmount)
+            def parsedValue = new BigDecimal(rawValue)
 
-            def formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            LocalDate parsedDueDate = LocalDate.parse(requestData.dueDate, formatter)
+            def formatter = new SimpleDateFormat("dd/MM/yyyy")
+            Date parsedDueDate = formatter.parse(requestData.dueDate)
 
             def payment = paymentService.save(
+                    requestData.customerId as Long,
                     requestData.payerId as Long,
                     requestData.billingType,
-                    parsedAmount,
+                    parsedValue,
                     requestData.status,
                     parsedDueDate
             )
@@ -87,8 +90,8 @@ class PaymentController {
 
         try {
 
-            def formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            LocalDate parsedDueDate = LocalDate.parse(requestData.dueDate, formatter)
+            def formatter = new SimpleDateFormat("dd/MM/yyyy")
+            Date parsedDueDate = formatter.parse(requestData.dueDate)
 
             def payment = paymentService.update(
                     existingPayment.id,
