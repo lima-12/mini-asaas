@@ -34,7 +34,8 @@ class CustomerController {
             '*' { respond customer, [status: CREATED] }
             }
         } catch (ValidationException e) {
-            respond customer.errors, view:'create'
+            flash.message = "${e.message}"
+            redirect action:"create"
             return
         }
         

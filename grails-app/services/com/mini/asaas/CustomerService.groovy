@@ -22,6 +22,7 @@ class CustomerService {
        customer.postalCode = params.postalCode
        customer.adress = params.adress
        customer.adressNumber = params.adressNumber
+       customer.typeRegistry = params.typeRegistry
 
        return customer.save(flush: true, failOnError: true)
    }
@@ -66,11 +67,15 @@ class CustomerService {
         customer.postalCode = params.postalCode
         customer.adress = params.adress
         customer.adressNumber = params.adressNumber
+        customer.typeRegistry = params.typeRegistry
 
         return customer.save(flush: true, failOnError: true)
     }
 
     List<Customer> list(Map args){
+        if (args.containsKey('typeRegistry') && args.typeRegistry == '') {
+            args.remove('typeRegistry')
+        }
         return Customer.list(args)
     }
 
