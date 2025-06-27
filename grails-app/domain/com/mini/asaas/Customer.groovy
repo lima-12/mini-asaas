@@ -19,7 +19,6 @@ class Customer extends BaseEntity {
       postalCode blank: false
       adress blank: false
       adressNumber blank: false
-        //deleted display: false
    }
  
 }
