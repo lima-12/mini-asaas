@@ -1,7 +1,10 @@
 package com.mini.asaas
 import com.mini.asaas.base.BaseEntity
+import com.mini.asaas.enums.TypeRegistry
 
 class Customer extends BaseEntity {
+
+   TypeRegistry typeRegistry
    String name
    String email
    String cpfCnpj
@@ -16,7 +19,6 @@ class Customer extends BaseEntity {
       postalCode blank: false
       adress blank: false
       adressNumber blank: false
-        //deleted display: false
    }
  
 }
