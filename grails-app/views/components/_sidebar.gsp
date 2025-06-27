@@ -10,5 +10,11 @@
                 icon="users"
                 href="${createLink(uri: '/payer')}"
         ></atlas-sidebar-menu-item>
+
+        <atlas-sidebar-menu-item
+                text="Cobranças"
+                icon="hand-holding-money"
+                href="${createLink(uri: '/payment')}"
+        ></atlas-sidebar-menu-item>
     </atlas-sidebar-menu>
 </atlas-sidebar>
